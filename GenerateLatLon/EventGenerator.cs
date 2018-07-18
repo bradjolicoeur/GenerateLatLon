@@ -4,8 +4,6 @@ using GenerateLatLon.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Diagnostics;
 
 namespace GenerateLatLon
@@ -13,7 +11,7 @@ namespace GenerateLatLon
 
     public class EventGenerator : IEventGenerator
     {
-        private enum eventType : int
+        private enum EventType : int
         {
             None,
             HardBraking,
@@ -23,7 +21,7 @@ namespace GenerateLatLon
             Idling
         }
 
-        private IEnumerable<EventType> _eventList;
+        private IEnumerable<Models.EventType> _eventList;
 
         private readonly Random _rand = new Random();
 
@@ -34,14 +32,14 @@ namespace GenerateLatLon
 
         private void InitializeEventList()
         {
-            _eventList = new List<EventType>()
+            _eventList = new List<Models.EventType>()
             {              
-                new EventType { Name = "Seatbelt"},
-                new EventType { Name = "HardAcceleration"},
-                new EventType { Name = "HardBraking"},
-                new EventType { Name = "Idling"},
-                new EventType { Name = "Diagnostics"},
-                new EventType { Name = "None"}
+                new Models.EventType { Name = "Seatbelt"},
+                new Models.EventType { Name = "HardAcceleration"},
+                new Models.EventType { Name = "HardBraking"},
+                new Models.EventType { Name = "Idling"},
+                new Models.EventType { Name = "Diagnostics"},
+                new Models.EventType { Name = "None"}
             };
 
             double totalWeight = _eventList.Count();
@@ -65,9 +63,9 @@ namespace GenerateLatLon
         {
             var results = new List<IPosition>();
 
-            eventType typeID = (eventType)_rand.Next(4);
+            EventType typeID = (EventType)_rand.Next(4);
 
-            var type = _eventList.OrderBy(e => e.PercentOutcome).RandomElementByWeight(e => e.PercentOutcome);
+            var type = _eventList.OrderBy(e => e.PercentOutcome).RandomElementByWeight(_rand, e => e.PercentOutcome);
 
             switch (type.Name)
             {

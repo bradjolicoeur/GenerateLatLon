@@ -7,12 +7,12 @@ namespace GenerateLatLon.Helpers
     public static class IEnumerableExtensions
     {
 
-        public static T RandomElementByWeight<T>(this IEnumerable<T> sequence, Func<T, double> weightSelector)
+        public static T RandomElementByWeight<T>(this IEnumerable<T> sequence, Random rand, Func<T, double> weightSelector)
         {
             double totalWeight = sequence.Sum(weightSelector);
 
             // The weight we are after...
-            double itemWeightIndex = new Random().NextDouble() * totalWeight;
+            double itemWeightIndex = rand.NextDouble() * totalWeight;
             double currentWeightIndex = 0;
 
             foreach (var item in from weightedItem in sequence select new { Value = weightedItem, Weight = weightSelector(weightedItem) })
