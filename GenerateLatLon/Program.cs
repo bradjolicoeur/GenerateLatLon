@@ -8,15 +8,18 @@ namespace GenerateLatLon
     {
         static void Main(string[] args)
         {
-            var service = new PositionGenerationService(new EventGenerator());
+            var service = new PositionGenerationService(new EventGenerator(), new CalculateSpeedAndDistance());
 
             foreach(var result in service.Generate())
             {
                 Console.WriteLine(
-                      "lat:" + Math.Round(result.latitude, 6).ToString() 
-                    + " lon:" + Math.Round(result.longitude, 6).ToString() 
-                    + " time:" + result.UtcPositionTime.ToString() 
-                    + " type:" + ((result is IBehaviorEvent)? ((IBehaviorEvent)result).Label : "Position"));
+                    //  "lat:" + Math.Round(result.Latitude, 6).ToString() 
+                    //+ " lon:" + Math.Round(result.Longitude, 6).ToString() 
+                    //+ " time:" + result.UtcPositionTime.ToString() 
+                    //+ " type:" + ((result is IBehaviorEvent)? ((IBehaviorEvent)result).Label : "Position")
+                    //+ 
+                    " ditance km:" + result.DistanceKM.ToString()
+                    + " speed kmph:" + result.SpeedKM.ToString());
             }
             
             Console.ReadLine();

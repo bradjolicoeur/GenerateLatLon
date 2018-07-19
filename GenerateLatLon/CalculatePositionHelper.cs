@@ -29,8 +29,8 @@ namespace GenerateLatLon
             //OffsetPosition, decimal degrees
             return new Position
             {
-                latitude = Math.Round(lat + dLat * 180 / Math.PI, 6),
-                longitude = Math.Round(lon + dLon * 180 / Math.PI, 6),
+                Latitude = Math.Round(lat + dLat * 180 / Math.PI, 6),
+                Longitude = Math.Round(lon + dLon * 180 / Math.PI, 6),
                 dn = dn,
                 de = de
             };

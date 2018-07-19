@@ -7,11 +7,13 @@ namespace GenerateLatLon.Models
         public BaseBehaviorEvent(IPosition position, string label)
         {
             Label = label;
-            latitude = position.latitude;
-            longitude = position.longitude;
+            Latitude = position.Latitude;
+            Longitude = position.Longitude;
             dn = position.dn;
             de = position.de;
             UtcPositionTime = position.UtcPositionTime;
+            DistanceKM = position.DistanceKM;
+            SpeedKM = position.SpeedKM;
         }
 
         public string Label { get; private set; }

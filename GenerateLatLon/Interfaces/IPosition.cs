@@ -6,7 +6,9 @@ namespace GenerateLatLon.Interfaces
     {
         double de { get; set; }
         double dn { get; set; }
-        double latitude { get; set; }
-        double longitude { get; set; }
+        double Latitude { get; set; }
+        double Longitude { get; set; }
+        double DistanceKM { get; set; }
+        double SpeedKM { get; set; }
     }
 }

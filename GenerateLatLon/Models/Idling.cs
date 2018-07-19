@@ -7,6 +7,8 @@ namespace GenerateLatLon.Models
     {
         public Idling(IPosition position) : base(position, "Idling")
         {
+            SpeedKM = 0;
+            DistanceKM = 0;
         }
     }
 }

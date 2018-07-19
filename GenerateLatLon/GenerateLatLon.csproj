@@ -46,9 +46,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CalculatePositionHelper.cs" />
+    <Compile Include="CalculateSpeedAndDistance.cs" />
     <Compile Include="Enum\Enums.cs" />
     <Compile Include="EventGenerator.cs" />
+    <Compile Include="Helpers\GeoFunctions.cs" />
     <Compile Include="Helpers\IEnumerableExtensions.cs" />
+    <Compile Include="ICalculateSpeedAndDistance.cs" />
     <Compile Include="Interfaces\IEventGenerator.cs" />
     <Compile Include="Interfaces\IBehaviorEvent.cs" />
     <Compile Include="Interfaces\IDeviceEvent.cs" />
