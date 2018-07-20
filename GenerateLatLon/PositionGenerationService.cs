@@ -1,5 +1,6 @@
 ﻿using GenerateLatLon.Interfaces;
 using GenerateLatLon.Models;
+using GenerateLatLon.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace GenerateLatLon
     {
         private readonly IEventGenerator _eventGenerator;
         private readonly ICalculateSpeedAndDistance _speedAndDistance;
+        private readonly Random rnd = new Random();
 
         public PositionGenerationService(IEventGenerator eventGenerator, ICalculateSpeedAndDistance speedAndDistance)
         {
@@ -21,22 +23,19 @@ namespace GenerateLatLon
 
         public IEnumerable<IPosition> Generate()
         {
-            double lat = 39.9340;
-            double lon = -74.8910;
-            double dn = 100;
-            double de = 100;
+            var sPos = new Coordinates(39.9340, -74.8910);
+            var anchorPosition = new Coordinates(39.9340, -74.8910);
+            int anchorDistance = 1000;
+
             DateTime t = DateTime.UtcNow;
-            Random rnd = new Random();
 
             var results = new List<IPosition>();
 
             for (int i = 0; i < 1000; i++)
             {
-                dn = rnd.Next(100,1500);
-                de = rnd.Next(100,1500);
-                var position = CalculatePositionHelper.Calculate(lat, lon, dn, de);
-                lat = position.Latitude;
-                lon = position.Longitude;
+                var position = NewPosition(sPos, anchorPosition, anchorDistance);
+                sPos.Latitude = position.Latitude;
+                sPos.Longitude = position.Longitude;
                 position.UtcPositionTime = t.AddMinutes(rnd.Next(1,2));
                 results.Add(position);
                 ProcessPosition(results, position);
@@ -44,6 +43,31 @@ namespace GenerateLatLon
             }
 
             return results;
+        }
+
+        private Position NewPosition(Coordinates start, Coordinates anchor, int anchorDistanceKM)
+        {
+            int maxRand = (anchorDistanceKM < 1500) ?  anchorDistanceKM : 1500;
+            Position position = null;
+
+            while (true)
+            {
+                double dn = rnd.Next(maxRand);
+                double de = rnd.Next(maxRand);
+                position = CalculatePositionHelper.Calculate(start.Latitude, start.Longitude, dn, de);
+
+                double distance = position.DistanceTo(anchor);
+                if ( distance <= anchorDistanceKM)
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("x distance:" + distance.ToString());
+                }
+            }
+  
+            return position;
         }
 
         private void ProcessPosition(List<IPosition> list, Position position)

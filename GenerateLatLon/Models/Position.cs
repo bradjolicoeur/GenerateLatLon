@@ -3,10 +3,9 @@ using System;
 
 namespace GenerateLatLon.Models
 {
-    public class Position : IPosition
+    public class Position : Coordinates, IPosition
     {
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
+        
         public double dn { get; set; }
         public double de { get; set; }
         public DateTime UtcPositionTime { get; set; }

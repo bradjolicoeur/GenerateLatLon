@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GenerateLatLon.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,11 @@ namespace GenerateLatLon.Helpers
             double timeHrs = start.Subtract(end).TotalHours;
 
             return distanceKM / timeHrs;
+        }
+
+        public static double DistanceTo(this Coordinates start, Coordinates end, char unit = 'K')
+        {
+            return DistanceTo(start.Latitude, start.Longitude, end.Latitude, end.Longitude, unit);
         }
 
         public static double DistanceTo(double lat1, double lon1, double lat2, double lon2, char unit = 'K')
@@ -40,5 +46,23 @@ namespace GenerateLatLon.Helpers
 
             return dist;
         }
+
+        public static bool IsPointInPolygon(List<Coordinates> poly, Coordinates point)
+        {
+            int i, j;
+            bool condition = false;
+            for (i = 0, j = poly.Count - 1; i < poly.Count; j = i++)
+            {
+                if ((((poly[i].Longitude <= point.Latitude) && (point.Latitude < poly[j].Latitude))
+                        || ((poly[j].Latitude <= point.Latitude) && (point.Latitude < poly[i].Latitude)))
+                        && (point.Longitude < (poly[j].Longitude - poly[i].Longitude) * (point.Latitude - poly[i].Latitude)
+                            / (poly[j].Latitude - poly[i].Latitude) + poly[i].Longitude))
+
+                    condition = !condition;
+            }
+
+            return condition;
+        }
+
     }
 }

@@ -16,10 +16,9 @@ namespace GenerateLatLon
                     //  "lat:" + Math.Round(result.Latitude, 6).ToString() 
                     //+ " lon:" + Math.Round(result.Longitude, 6).ToString() 
                     //+ " time:" + result.UtcPositionTime.ToString() 
-                    //+ " type:" + ((result is IBehaviorEvent)? ((IBehaviorEvent)result).Label : "Position")
-                    //+ 
-                    " ditance km:" + result.DistanceKM.ToString()
-                    + " speed kmph:" + result.SpeedKM.ToString());
+                     " type:" + ((result is IBehaviorEvent)? ((IBehaviorEvent)result).Label : "Position")
+                    + " distance km:" + result.DistanceKM.ToString()
+                    + " speed kph:" + result.SpeedKM.ToString());
             }
             
             Console.ReadLine();

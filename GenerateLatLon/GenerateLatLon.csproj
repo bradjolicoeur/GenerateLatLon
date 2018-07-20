@@ -57,9 +57,11 @@
     <Compile Include="Interfaces\IDeviceEvent.cs" />
     <Compile Include="Interfaces\IPosition.cs" />
     <Compile Include="Models\BaseBehaviorEvent.cs" />
+    <Compile Include="Models\Coordinates.cs" />
     <Compile Include="Models\EventType.cs" />
     <Compile Include="Models\HardAcceleration.cs" />
     <Compile Include="Models\HardBraking.cs" />
+    <Compile Include="Interfaces\ICoordinates.cs" />
     <Compile Include="Models\Idling.cs" />
     <Compile Include="Models\Position.cs" />
     <Compile Include="Models\DiagnosticEvent.cs" />
