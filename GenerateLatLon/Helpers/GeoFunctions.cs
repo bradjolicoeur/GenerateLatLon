@@ -47,21 +47,46 @@ namespace GenerateLatLon.Helpers
             return dist;
         }
 
-        public static bool IsPointInPolygon(List<Coordinates> poly, Coordinates point)
+        public static bool IsPointInPolygon(this List<Coordinates> poly, Coordinates pointx)
         {
+            var point = new Coordinates { Latitude = Math.Round(pointx.Latitude, 4), Longitude = Math.Round(pointx.Longitude, 4) };
             int i, j;
-            bool condition = false;
+            bool c = false;
             for (i = 0, j = poly.Count - 1; i < poly.Count; j = i++)
             {
-                if ((((poly[i].Longitude <= point.Latitude) && (point.Latitude < poly[j].Latitude))
+                if ((((poly[i].Latitude <= point.Latitude) && (point.Latitude < poly[j].Latitude))
                         || ((poly[j].Latitude <= point.Latitude) && (point.Latitude < poly[i].Latitude)))
                         && (point.Longitude < (poly[j].Longitude - poly[i].Longitude) * (point.Latitude - poly[i].Latitude)
                             / (poly[j].Latitude - poly[i].Latitude) + poly[i].Longitude))
+                {
+                    c = !c;
 
-                    condition = !condition;
+                    //Console.WriteLine("Line1:" + ((poly[i].Latitude <= point.Latitude) && (point.Latitude < poly[j].Latitude)).ToString());
+                    //Console.WriteLine("Line2:" + ((poly[j].Latitude <= point.Latitude) && (point.Latitude < poly[i].Latitude)).ToString());
+                    //Console.WriteLine("Line3:" + (point.Longitude < (poly[j].Longitude - poly[i].Longitude) * (point.Latitude - poly[i].Latitude)
+                     //       / (poly[j].Latitude - poly[i].Latitude) + poly[i].Longitude).ToString());
+                }
+                    
             }
 
-            return condition;
+            return c;
+        }
+
+
+        public static bool IsPointInState(this Coordinates position, IEnumerable<string> states)
+        {
+            foreach(var stateName in states)
+            {
+                var state = Resources.GetStatePoly().state.Where(q => q.name == stateName).FirstOrDefault();
+                var poly = new List<Coordinates>();
+                state.point.ToList().ForEach(x => {
+                    poly.Add(new Coordinates { Latitude = x.lat, Longitude = x.lng });
+                });
+
+                if (IsPointInPolygon(poly, position)) return true;
+            }
+
+            return false;
         }
 
     }

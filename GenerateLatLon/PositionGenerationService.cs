@@ -15,6 +15,10 @@ namespace GenerateLatLon
         private readonly ICalculateSpeedAndDistance _speedAndDistance;
         private readonly Random rnd = new Random();
 
+        private int AnchorDistanceKM { get; set; }
+        private Coordinates Anchor { get; set; }
+        private IEnumerable<string> AnchorStates { get; set; }
+
         public PositionGenerationService(IEventGenerator eventGenerator, ICalculateSpeedAndDistance speedAndDistance)
         {
             _eventGenerator = eventGenerator;
@@ -24,8 +28,9 @@ namespace GenerateLatLon
         public IEnumerable<IPosition> Generate()
         {
             var sPos = new Coordinates(39.9340, -74.8910);
-            var anchorPosition = new Coordinates(39.9340, -74.8910);
-            int anchorDistance = 1000;
+            Anchor = new Coordinates(39.9340, -74.8910);
+            AnchorDistanceKM = 1000;
+            AnchorStates = new string[] { "New Jersey", "Pennsylvania", "New York", "Maryland", "Delaware" };
 
             DateTime t = DateTime.UtcNow;
 
@@ -33,7 +38,7 @@ namespace GenerateLatLon
 
             for (int i = 0; i < 1000; i++)
             {
-                var position = NewPosition(sPos, anchorPosition, anchorDistance);
+                var position = NewPosition(sPos);
                 sPos.Latitude = position.Latitude;
                 sPos.Longitude = position.Longitude;
                 position.UtcPositionTime = t.AddMinutes(rnd.Next(1,2));
@@ -45,29 +50,59 @@ namespace GenerateLatLon
             return results;
         }
 
-        private Position NewPosition(Coordinates start, Coordinates anchor, int anchorDistanceKM)
+        private Position NewPosition(Coordinates start)
         {
-            int maxRand = (anchorDistanceKM < 1500) ?  anchorDistanceKM : 1500;
+            //max rand is % of anchor distance
+            int maxRand = Convert.ToInt32(.75 *((AnchorDistanceKM < 1500) ?  AnchorDistanceKM : 1500));
             Position position = null;
+            bool boundryViolation = false;
+            double dn = 0;
+            double de = 0;
 
             while (true)
             {
-                double dn = rnd.Next(maxRand);
-                double de = rnd.Next(maxRand);
+                
+
+                //turn the ship 
+                if(boundryViolation)
+                {
+                    dn = dn * -1;
+                    boundryViolation = false;
+                }else
+                {
+                    dn = rnd.Next(Convert.ToInt32(maxRand * .5), 1500);// rnd.Next(maxRand);
+                    de = rnd.Next(Convert.ToInt32(maxRand * .05));
+                }
+
+                Console.WriteLine(dn.ToString() + ", " + de.ToString());
                 position = CalculatePositionHelper.Calculate(start.Latitude, start.Longitude, dn, de);
 
-                double distance = position.DistanceTo(anchor);
-                if ( distance <= anchorDistanceKM)
+                if (InBoundaries(position))
                 {
                     break;
                 }
                 else
                 {
-                    Console.WriteLine("x distance:" + distance.ToString());
+                    boundryViolation = true;
+                    if(!(position.DistanceTo(Anchor) <= AnchorDistanceKM))
+                    {
+                        Console.WriteLine("x too far from anchor " + position.DistanceTo(Anchor).ToString());
+                    }
+                    else
+                    {
+                        Console.WriteLine("x Not in boundary:" + position.Latitude.ToString() + ", " + position.Longitude.ToString());
+                    }
+                    
                 }
             }
   
             return position;
+        }
+
+        private bool InBoundaries(Position position)
+        {
+            return (position.DistanceTo(Anchor) <= AnchorDistanceKM)
+                && (position.IsPointInState(AnchorStates)); 
         }
 
         private void ProcessPosition(List<IPosition> list, Position position)
