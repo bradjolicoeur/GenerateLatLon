@@ -1,10 +1,13 @@
-﻿using System;
+﻿using GenerateLatLon;
 using GenerateLatLon.Interfaces;
 using GenerateLatLon.Models;
-using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace GenerateLatLon
+namespace GenerateLatLonConsole
 {
     class Program
     {
@@ -26,18 +29,15 @@ namespace GenerateLatLon
                 foreach (var result in positions)
                 {
                     Console.WriteLine(
-                        //  "lat:" + Math.Round(result.Latitude, 6).ToString() 
-                        //+ " lon:" + Math.Round(result.Longitude, 6).ToString() 
-                        //+ " time:" + result.UtcPositionTime.ToString() 
-                         " type:" + ((result is IBehaviorEvent)? ((IBehaviorEvent)result).Label : "Position")
+                         //  "lat:" + Math.Round(result.Latitude, 6).ToString() 
+                         //+ " lon:" + Math.Round(result.Longitude, 6).ToString() 
+                         //+ " time:" + result.UtcPositionTime.ToString() 
+                         " type:" + ((result is IBehaviorEvent) ? ((IBehaviorEvent)result).Label : "Position")
                         + " distance km:" + result.DistanceKM.ToString()
                         + " speed kph:" + result.SpeedKM.ToString());
                 }
             }
             Console.ReadLine();
         }
-
-
-        
     }
 }

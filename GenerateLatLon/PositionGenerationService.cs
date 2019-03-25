@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GenerateLatLon
 {
-    public class PositionGenerationService
+    public class PositionGenerationService : IPositionGenerationService
     {
         private readonly IEventGenerator _eventGenerator;
         private readonly ICalculateSpeedAndDistance _speedAndDistance;

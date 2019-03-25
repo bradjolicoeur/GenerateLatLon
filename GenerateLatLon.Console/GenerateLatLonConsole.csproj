@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2AF02D30-6404-43EB-8C3D-D0753DE01203}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>GenerateLatLon</RootNamespace>
-    <AssemblyName>GenerateLatLon</AssemblyName>
+    <ProjectGuid>{0F4D758D-B842-4B03-95F8-A2F4AAED47B9}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>GenerateLatLonConsole</RootNamespace>
+    <AssemblyName>GenerateLatLonConsole</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -33,9 +34,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Azure.Services.AppAuthentication, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.Services.AppAuthentication.1.0.3\lib\net452\Microsoft.Azure.Services.AppAuthentication.dll</HintPath>
@@ -46,8 +44,8 @@
     <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory.Platform, Version=3.19.8.16603, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.19.8\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Microsoft.ServiceBus, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.ServiceBus.5.1.0\lib\net46\Microsoft.ServiceBus.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -64,31 +62,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CalculatePositionHelper.cs" />
-    <Compile Include="CalculateSpeedAndDistance.cs" />
-    <Compile Include="Enum\Enums.cs" />
-    <Compile Include="EventGenerator.cs" />
-    <Compile Include="Helpers\GeoFunctions.cs" />
-    <Compile Include="Helpers\IEnumerableExtensions.cs" />
-    <Compile Include="Helpers\Resources.cs" />
-    <Compile Include="ICalculateSpeedAndDistance.cs" />
-    <Compile Include="Interfaces\IEventGenerator.cs" />
-    <Compile Include="Interfaces\IBehaviorEvent.cs" />
-    <Compile Include="Interfaces\IDeviceEvent.cs" />
-    <Compile Include="Interfaces\IPosition.cs" />
-    <Compile Include="IPositionGenerationService.cs" />
-    <Compile Include="Models\BaseBehaviorEvent.cs" />
-    <Compile Include="Models\Coordinates.cs" />
-    <Compile Include="Models\EventType.cs" />
-    <Compile Include="Models\HardAcceleration.cs" />
-    <Compile Include="Models\HardBraking.cs" />
-    <Compile Include="Interfaces\ICoordinates.cs" />
-    <Compile Include="Models\Idling.cs" />
-    <Compile Include="Models\Position.cs" />
-    <Compile Include="Models\DiagnosticEvent.cs" />
-    <Compile Include="Models\Seatbelt.cs" />
-    <Compile Include="Models\StatesPoly\States.cs" />
-    <Compile Include="PositionGenerationService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -97,10 +70,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\states.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </None>
+    <ProjectReference Include="..\GenerateLatLon\GenerateLatLon.csproj">
+      <Project>{2af02d30-6404-43eb-8c3d-d0753de01203}</Project>
+      <Name>GenerateLatLon</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Azure.Services.AppAuthentication.1.0.3\build\Microsoft.Azure.Services.AppAuthentication.targets" Condition="Exists('..\packages\Microsoft.Azure.Services.AppAuthentication.1.0.3\build\Microsoft.Azure.Services.AppAuthentication.targets')" />
