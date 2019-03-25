@@ -16,7 +16,7 @@ namespace GenerateLatLon
         private readonly Random rnd = new Random();
 
         private int AnchorDistanceKM { get; set; }
-        private Coordinates Anchor { get; set; }
+        private ICoordinates Anchor { get; set; }
         private IEnumerable<string> AnchorStates { get; set; }
 
         public PositionGenerationService(IEventGenerator eventGenerator, ICalculateSpeedAndDistance speedAndDistance)
@@ -25,18 +25,20 @@ namespace GenerateLatLon
             _speedAndDistance = speedAndDistance;
         }
 
-        public IEnumerable<IPosition> Generate()
+        public IEnumerable<IPosition> Generate(ICoordinates startingPosition, ICoordinates anchor, DateTime startTime, 
+            int positions = 1000, int anchorDistanceKM = 1000, string[] anchorStates = null)
         {
-            var sPos = new Coordinates(39.9340, -74.8910);
-            Anchor = new Coordinates(39.9340, -74.8910);
-            AnchorDistanceKM = 1000;
-            AnchorStates = new string[] { "New Jersey", "Pennsylvania", "New York", "Maryland", "Delaware" };
 
-            DateTime t = DateTime.UtcNow;
+            ICoordinates sPos = startingPosition;
+            Anchor = anchor;
+            AnchorDistanceKM = anchorDistanceKM;
+            AnchorStates = anchorStates;
+
+            DateTime t = startTime;
 
             var results = new List<IPosition>();
 
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < positions; i++)
             {
                 var position = NewPosition(sPos);
                 sPos.Latitude = position.Latitude;
@@ -50,7 +52,7 @@ namespace GenerateLatLon
             return results;
         }
 
-        private Position NewPosition(Coordinates start)
+        private Position NewPosition(ICoordinates start)
         {
             //max rand is % of anchor distance
             int maxRand = Convert.ToInt32(.75 *((AnchorDistanceKM < 1500) ?  AnchorDistanceKM : 1500));

@@ -1,4 +1,5 @@
-﻿using GenerateLatLon.Models;
+﻿using GenerateLatLon.Interfaces;
+using GenerateLatLon.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace GenerateLatLon.Helpers
             return distanceKM / timeHrs;
         }
 
-        public static double DistanceTo(this Coordinates start, Coordinates end, char unit = 'K')
+        public static double DistanceTo(this ICoordinates start, ICoordinates end, char unit = 'K')
         {
             return DistanceTo(start.Latitude, start.Longitude, end.Latitude, end.Longitude, unit);
         }
@@ -75,6 +76,9 @@ namespace GenerateLatLon.Helpers
 
         public static bool IsPointInState(this Coordinates position, IEnumerable<string> states)
         {
+            if (states == null || states.Count() == 0)
+                return true; //no states boundry
+
             foreach(var stateName in states)
             {
                 var state = Resources.GetStatePoly().state.Where(q => q.name == stateName).FirstOrDefault();
