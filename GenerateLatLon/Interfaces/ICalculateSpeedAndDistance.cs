@@ -1,6 +1,5 @@
-﻿using GenerateLatLon.Interfaces;
-
-namespace GenerateLatLon
+﻿
+namespace GenerateLatLon.Interfaces
 {
     public interface ICalculateSpeedAndDistance
     {

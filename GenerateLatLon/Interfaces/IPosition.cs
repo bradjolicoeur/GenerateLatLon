@@ -2,7 +2,7 @@
 
 namespace GenerateLatLon.Interfaces
 {
-    public interface IPosition : ICoordinates, IDeviceEvent
+    public interface IPosition : ICoordinates, IDeviceEvent, IVehicle
     {
         double de { get; set; }
         double dn { get; set; }

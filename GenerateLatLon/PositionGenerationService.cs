@@ -18,6 +18,7 @@ namespace GenerateLatLon
         private int AnchorDistanceKM { get; set; }
         private ICoordinates Anchor { get; set; }
         private IEnumerable<string> AnchorStates { get; set; }
+        private IVehicle Vehicle { get; set; }
 
         public PositionGenerationService(IEventGenerator eventGenerator, ICalculateSpeedAndDistance speedAndDistance)
         {
@@ -25,10 +26,10 @@ namespace GenerateLatLon
             _speedAndDistance = speedAndDistance;
         }
 
-        public IEnumerable<IPosition> Generate(ICoordinates startingPosition, ICoordinates anchor, DateTime startTime, 
+        public IEnumerable<IPosition> Generate(IVehicle vehicle, ICoordinates startingPosition, ICoordinates anchor, DateTime startTime, 
             int positions = 1000, int anchorDistanceKM = 1000, string[] anchorStates = null)
         {
-
+            Vehicle = vehicle;
             ICoordinates sPos = startingPosition;
             Anchor = anchor;
             AnchorDistanceKM = anchorDistanceKM;
@@ -41,6 +42,7 @@ namespace GenerateLatLon
             for (int i = 0; i < positions; i++)
             {
                 var position = NewPosition(sPos);
+                position.VehicleId = Vehicle.VehicleId;
                 sPos.Latitude = position.Latitude;
                 sPos.Longitude = position.Longitude;
                 position.UtcPositionTime = t.AddMinutes(rnd.Next(1,2));
