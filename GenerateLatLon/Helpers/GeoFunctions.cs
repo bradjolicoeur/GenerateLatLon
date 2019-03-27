@@ -48,7 +48,7 @@ namespace GenerateLatLon.Helpers
             return dist;
         }
 
-        public static bool IsPointInPolygon(this List<Coordinates> poly, Coordinates pointx)
+        public static bool IsPointInPolygon(this List<ICoordinates> poly, ICoordinates pointx)
         {
             var point = new Coordinates { Latitude = Math.Round(pointx.Latitude, 4), Longitude = Math.Round(pointx.Longitude, 4) };
             int i, j;
@@ -74,7 +74,7 @@ namespace GenerateLatLon.Helpers
         }
 
 
-        public static bool IsPointInState(this Coordinates position, IEnumerable<string> states)
+        public static bool IsPointInState(this ICoordinates position, IEnumerable<string> states)
         {
             if (states == null || states.Count() == 0)
                 return true; //no states boundry
@@ -82,7 +82,7 @@ namespace GenerateLatLon.Helpers
             foreach(var stateName in states)
             {
                 var state = Resources.GetStatePoly().state.Where(q => q.name == stateName).FirstOrDefault();
-                var poly = new List<Coordinates>();
+                var poly = new List<ICoordinates>();
                 state.point.ToList().ForEach(x => {
                     poly.Add(new Coordinates { Latitude = x.lat, Longitude = x.lng });
                 });

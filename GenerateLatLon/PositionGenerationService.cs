@@ -4,8 +4,6 @@ using GenerateLatLon.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GenerateLatLon
 {
@@ -40,14 +38,34 @@ namespace GenerateLatLon
             Anchor = anchor;
             AnchorDistanceKM = anchorDistanceKM;
             AnchorStates = anchorStates;
+            double dn = 0;
+            double de = 0;
 
             DateTime t = startTime;
 
             var results = new List<IPosition>();
+            bool holdHeading = false;
+            int holdHeadingCount = 0;
 
             for (int i = 0; i < positions; i++)
             {
-                var position = NewPosition(sPos);
+                
+                var position = NewPosition(sPos, ref holdHeading, dn, de);
+                dn = position.dn;
+                de = position.de;
+
+                if(holdHeading)
+                {
+                    if(holdHeadingCount < 15)
+                    {
+                        holdHeadingCount++;
+                    }else
+                    {
+                        holdHeading = false;
+                        holdHeadingCount = 0;
+                    }
+                }
+
                 position.VehicleId = Vehicle.VehicleId;
                 sPos.Latitude = position.Latitude;
                 sPos.Longitude = position.Longitude;
@@ -57,22 +75,25 @@ namespace GenerateLatLon
                 t = results.Max(m => m.UtcPositionTime);
             }
 
+            foreach (var item in results.Where(v => v.VehicleId == null))
+            {
+                item.VehicleId = Vehicle.VehicleId;
+            }
+
             return results;
         }
 
-        private Position NewPosition(ICoordinates start)
+        private IPosition NewPosition(ICoordinates start,ref bool holdHeading, double dn, double de)
         {
             //max rand is % of anchor distance
             int maxRand = Convert.ToInt32(.75 *((AnchorDistanceKM < 1500) ?  AnchorDistanceKM : 1500));
             Position position = null;
             bool boundryViolation = false;
-            double dn = 0;
-            double de = 0;
+
 
             while (true)
             {
                 
-
                 //turn the ship 
                 if(boundryViolation)
                 {
@@ -80,12 +101,16 @@ namespace GenerateLatLon
                     boundryViolation = false;
                 }else
                 {
-                    dn = rnd.Next(Convert.ToInt32(maxRand * .5), 1500);// rnd.Next(maxRand);
-                    de = rnd.Next(Convert.ToInt32(maxRand * .05));
+                    if(!holdHeading)
+                    {
+                        dn = rnd.Next(Convert.ToInt32(maxRand * .8), 1500);// rnd.Next(maxRand);
+                        de = rnd.Next(Convert.ToInt32(maxRand * .05));
+                    }
                 }
 
-                Console.WriteLine(Vehicle.VehicleId + " " + dn.ToString() + ", " + de.ToString());
+               
                 position = CalculatePositionHelper.Calculate(start.Latitude, start.Longitude, dn, de);
+                Console.WriteLine(Vehicle.VehicleId + " " + dn.ToString() + ", " + de.ToString() + " " + position.Latitude.ToString() + ":" + position.Longitude.ToString());
 
                 if (InBoundaries(position))
                 {
@@ -94,6 +119,7 @@ namespace GenerateLatLon
                 else
                 {
                     boundryViolation = true;
+                    holdHeading = true;
                     if(!(position.DistanceTo(Anchor) <= AnchorDistanceKM))
                     {
                         Console.WriteLine($"{Vehicle.VehicleId} x too far from anchor {position.DistanceTo(Anchor).ToString()}");
@@ -109,13 +135,13 @@ namespace GenerateLatLon
             return position;
         }
 
-        private bool InBoundaries(Position position)
+        private bool InBoundaries(IPosition position)
         {
             return (position.DistanceTo(Anchor) <= AnchorDistanceKM)
                 && (position.IsPointInState(AnchorStates)); 
         }
 
-        private void ProcessPosition(List<IPosition> list, Position position)
+        private void ProcessPosition(List<IPosition> list, IPosition position)
         {
             _speedAndDistance.Calulate(position, list.OrderByDescending(o => o.UtcPositionTime).Skip(1).Take(1).FirstOrDefault());
 

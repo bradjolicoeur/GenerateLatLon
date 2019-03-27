@@ -28,7 +28,7 @@ namespace GenerateLatLonConsole
                 {
                     StartingPosition = new Coordinates(39.9340, -74.8910),
                     Anchor = new Coordinates(39.9340, -74.8910),
-                    AnchorDistanceKM = 500,
+                    AnchorDistanceKM = 1000,
                     AnchorStates = new string[] { "New Jersey", "Pennsylvania", "New York", "Maryland", "Delaware" },
                     StartTime = startTime,
                     Vehicle = new Vehicle("12VVIELVICE9IDVW89V"),
@@ -44,16 +44,16 @@ namespace GenerateLatLonConsole
                     Vehicle = new Vehicle("12VVIELVICE9IDVW89X"),
                     NumberOfPositions = rnd.Next(500, 1000)
                 }
-                //, new GenerateTripRequest
-                //{
-                //    StartingPosition = new Coordinates(38.5632, -76.0788),
-                //    Anchor = new Coordinates(38.5632, -76.0788),
-                //    AnchorDistanceKM = 1000,
-                //    //AnchorStates = new string[] { "Pennsylvania", "Virginia", "Maryland", "Delaware" },
-                //    StartTime = startTime,
-                //    Vehicle = new Vehicle("12VVIELVICE9IDVW89R"),
-                //    NumberOfPositions = rnd.Next(500, 1000)
-                //}
+                , new GenerateTripRequest
+                {
+                    StartingPosition = new Coordinates(38.5632, -76.0788),
+                    Anchor = new Coordinates(38.5632, -76.0788),
+                    AnchorDistanceKM = 1000,
+                    //AnchorStates = new string[] { "Pennsylvania", "Virginia", "Maryland", "Delaware" },
+                    StartTime = startTime,
+                    Vehicle = new Vehicle("12VVIELVICE9IDVW89R"),
+                    NumberOfPositions = rnd.Next(500, 1000)
+                }
             };
 
             Parallel.ForEach(Vehicles, v =>
