@@ -26,6 +26,12 @@ namespace GenerateLatLon
             _speedAndDistance = speedAndDistance;
         }
 
+        public IEnumerable<IPosition> Generate(IGenerateTripRequest tripRequest)
+        {
+            return Generate(tripRequest.Vehicle, tripRequest.StartingPosition, tripRequest.Anchor, tripRequest.StartTime,
+                tripRequest.NumberOfPositions, tripRequest.AnchorDistanceKM, tripRequest.AnchorStates);
+        }
+
         public IEnumerable<IPosition> Generate(IVehicle vehicle, ICoordinates startingPosition, ICoordinates anchor, DateTime startTime, 
             int positions = 1000, int anchorDistanceKM = 1000, string[] anchorStates = null)
         {

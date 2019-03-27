@@ -17,25 +17,54 @@ namespace GenerateLatLonConsole
 
         private static readonly Random rnd = new Random();
 
+        private static readonly IPositionGenerationService service = new PositionGenerationService(new EventGenerator(), new CalculateSpeedAndDistance());
+
         static void Main(string[] args)
         {
             CreateEventHubClient();
-
-            IPositionGenerationService service = new PositionGenerationService(new EventGenerator(), new CalculateSpeedAndDistance());
-
-            ICoordinates sPos = new Coordinates(39.9340, -74.8910);
-            var Anchor = new Coordinates(39.9340, -74.8910);
-            var anchorStates = new string[] { "New Jersey", "Pennsylvania", "New York", "Maryland", "Delaware" };
             var startTime = DateTime.UtcNow.AddDays(-10);
-            var vehicle = new Vehicle("12VVIELVICE9IDVW89V");
-            int tripPositions = rnd.Next(500, 1000);
+
+            var Vehicles = new List<GenerateTripRequest>
+            {
+                new GenerateTripRequest
+                {
+                    StartingPosition = new Coordinates(39.9340, -74.8910),
+                    Anchor = new Coordinates(39.9340, -74.8910),
+                    AnchorDistanceKM = 500,
+                    AnchorStates = new string[] { "New Jersey", "Pennsylvania", "New York", "Maryland", "Delaware" },
+                    StartTime = startTime,
+                    Vehicle = new Vehicle("12VVIELVICE9IDVW89V"),
+                    NumberOfPositions = rnd.Next(500, 1000)
+                }
+                , new GenerateTripRequest
+                {
+                    StartingPosition = new Coordinates(38.5632, -76.0788),
+                    Anchor = new Coordinates(38.5632, -76.0788),
+                    AnchorDistanceKM = 1000,
+                    //AnchorStates = new string[] { "Pennsylvania", "Virginia", "Maryland", "Delaware" },
+                    StartTime = startTime,
+                    Vehicle = new Vehicle("12VVIELVICE9IDVW89R"),
+                    NumberOfPositions = rnd.Next(500, 1000)
+                }
+            };
+
+            Parallel.ForEach(Vehicles, v =>
+            {
+                GenerateTrips(v);
+            });
+           
+            Console.ReadLine();
+        }
+
+        private static void GenerateTrips(IGenerateTripRequest tripRequest)
+        {
 
             for (int i = 0; i < 10; i++)
             {
-                var positions = service.Generate(vehicle, sPos, Anchor, startTime, tripPositions, 1000, null);
+                var positions = service.Generate(tripRequest);
                 var last = positions.LastOrDefault();
-                startTime = last.UtcPositionTime.AddHours(1);
-                sPos = last;
+                tripRequest.StartTime = last.UtcPositionTime.AddHours(1);
+                tripRequest.StartingPosition = last;
                 foreach (var result in positions)
                 {
                     Console.WriteLine(
@@ -50,7 +79,6 @@ namespace GenerateLatLonConsole
                     SendTelemetryEvent(result);
                 }
             }
-            Console.ReadLine();
         }
 
         private static void SendTelemetryEvent(dynamic telemetryReading)
