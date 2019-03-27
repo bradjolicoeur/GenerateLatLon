@@ -17,6 +17,12 @@ namespace GenerateLatLonConsole
 
         private static readonly Random rnd = new Random();
 
+        private static void CreateEventHubClient()
+        {
+            var sbNamespace = "[Event Hub Connection String Here]";
+            HubClient = EventHubClient.CreateFromConnectionString(sbNamespace);
+        }
+
         static void Main(string[] args)
         {
             CreateEventHubClient();
@@ -97,10 +103,6 @@ namespace GenerateLatLonConsole
             HubClient.SendAsync(eventData);
         }
 
-        private static void CreateEventHubClient()
-        {
-            var sbNamespace = "Endpoint=sb://drivertelemetry-brad.servicebus.windows.net/;SharedAccessKeyName=generate;SharedAccessKey=AtwWTY9+0Bxzl50CeK3AXCy+DCWKjY79QJfcJHnOw/o=;EntityPath=generatelatlon-v1";
-            HubClient = EventHubClient.CreateFromConnectionString(sbNamespace);
-        }
+       
     }
 }
