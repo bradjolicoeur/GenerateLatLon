@@ -15,6 +15,8 @@ namespace GenerateLatLonConsole
     {
         private static EventHubClient HubClient;
 
+        private static readonly Random rnd = new Random();
+
         static void Main(string[] args)
         {
             CreateEventHubClient();
@@ -26,10 +28,11 @@ namespace GenerateLatLonConsole
             var anchorStates = new string[] { "New Jersey", "Pennsylvania", "New York", "Maryland", "Delaware" };
             var startTime = DateTime.UtcNow.AddDays(-10);
             var vehicle = new Vehicle("12VVIELVICE9IDVW89V");
+            int tripPositions = rnd.Next(500, 1000);
 
             for (int i = 0; i < 10; i++)
             {
-                var positions = service.Generate(vehicle, sPos, Anchor, startTime, 500, 1000, null);
+                var positions = service.Generate(vehicle, sPos, Anchor, startTime, tripPositions, 1000, null);
                 var last = positions.LastOrDefault();
                 startTime = last.UtcPositionTime.AddHours(1);
                 sPos = last;
@@ -54,7 +57,7 @@ namespace GenerateLatLonConsole
         {
             string serializedString = JsonConvert.SerializeObject(telemetryReading);
             var eventData = new EventData(Encoding.UTF8.GetBytes(serializedString));
-            HubClient.Send(eventData);
+            HubClient.SendAsync(eventData);
         }
 
         private static void CreateEventHubClient()
