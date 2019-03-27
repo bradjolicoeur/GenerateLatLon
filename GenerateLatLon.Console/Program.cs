@@ -17,9 +17,13 @@ namespace GenerateLatLonConsole
 
         private static readonly Random rnd = new Random();
 
+        //This controls how many trips each vehicle takes per run
+        private const int NumberOfTripsToGenerate = 10;
+
         private static void CreateEventHubClient()
         {
-            var sbNamespace = "[Event Hub Connection String Here]";
+            //TODO: add your connection string here
+            var sbNamespace = "[Event Hub Connection String Goes Here]";
             HubClient = EventHubClient.CreateFromConnectionString(sbNamespace);
         }
 
@@ -28,17 +32,18 @@ namespace GenerateLatLonConsole
             CreateEventHubClient();
             var startTime = DateTime.UtcNow.AddDays(-10);
 
+            //configure vehicles here
             var Vehicles = new List<GenerateTripRequest>
             {
                 new GenerateTripRequest
                 {
-                    StartingPosition = new Coordinates(39.9340, -74.8910),
-                    Anchor = new Coordinates(39.9340, -74.8910),
-                    AnchorDistanceKM = 1000,
-                    AnchorStates = new string[] { "New Jersey", "Pennsylvania", "New York", "Maryland", "Delaware" },
-                    StartTime = startTime,
-                    Vehicle = new Vehicle("12VVIELVICE9IDVW89V"),
-                    NumberOfPositions = rnd.Next(500, 1000)
+                    StartingPosition = new Coordinates(39.9340, -74.8910), //starting point for first trip
+                    Anchor = new Coordinates(39.9340, -74.8910), //anchor point keeps vehicles within a specific radius
+                    AnchorDistanceKM = 1000, //radius of the vehicle territory
+                    AnchorStates = new string[] { "New Jersey", "Pennsylvania", "New York", "Maryland", "Delaware" }, //optional; keep the vehicle in a set of states
+                    StartTime = startTime, //the start time for the first trip
+                    Vehicle = new Vehicle("12VVIELVICE9IDVW89V"), //any identifier works, but something that looks like vin is realistic
+                    NumberOfPositions = rnd.Next(500, 1000) //Number of positions to calculate for each trip
                 }
                 ,  new GenerateTripRequest
                 {
@@ -74,7 +79,7 @@ namespace GenerateLatLonConsole
         private static void GenerateTrips(IGenerateTripRequest tripRequest, IPositionGenerationService service)
         {
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < NumberOfTripsToGenerate; i++)
             {
                 var positions = service.Generate(tripRequest);
                 var last = positions.LastOrDefault();
