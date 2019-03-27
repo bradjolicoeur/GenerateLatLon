@@ -84,7 +84,7 @@ namespace GenerateLatLon
                     de = rnd.Next(Convert.ToInt32(maxRand * .05));
                 }
 
-                Console.WriteLine(dn.ToString() + ", " + de.ToString());
+                Console.WriteLine(Vehicle.VehicleId + " " + dn.ToString() + ", " + de.ToString());
                 position = CalculatePositionHelper.Calculate(start.Latitude, start.Longitude, dn, de);
 
                 if (InBoundaries(position))
@@ -96,11 +96,11 @@ namespace GenerateLatLon
                     boundryViolation = true;
                     if(!(position.DistanceTo(Anchor) <= AnchorDistanceKM))
                     {
-                        Console.WriteLine("x too far from anchor " + position.DistanceTo(Anchor).ToString());
+                        Console.WriteLine($"{Vehicle.VehicleId} x too far from anchor {position.DistanceTo(Anchor).ToString()}");
                     }
                     else
                     {
-                        Console.WriteLine("x Not in boundary:" + position.Latitude.ToString() + ", " + position.Longitude.ToString());
+                        Console.WriteLine($"{Vehicle.VehicleId} x Not in boundary:" + position.Latitude.ToString() + ", " + position.Longitude.ToString());
                     }
                     
                 }
