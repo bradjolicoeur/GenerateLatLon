@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateLatLon", "GenerateL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateLatLonConsole", "GenerateLatLon.Console\GenerateLatLonConsole.csproj", "{0F4D758D-B842-4B03-95F8-A2F4AAED47B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateLatLonFunction", "GenerateLatLonFunction\GenerateLatLonFunction.csproj", "{38267F20-F4C0-4AD5-9EE2-3846ECC72E2E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{0F4D758D-B842-4B03-95F8-A2F4AAED47B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F4D758D-B842-4B03-95F8-A2F4AAED47B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F4D758D-B842-4B03-95F8-A2F4AAED47B9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{38267F20-F4C0-4AD5-9EE2-3846ECC72E2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{38267F20-F4C0-4AD5-9EE2-3846ECC72E2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{38267F20-F4C0-4AD5-9EE2-3846ECC72E2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{38267F20-F4C0-4AD5-9EE2-3846ECC72E2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
