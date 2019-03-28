@@ -70,6 +70,7 @@
     <Compile Include="EventGenerator.cs" />
     <Compile Include="Helpers\GeoFunctions.cs" />
     <Compile Include="Helpers\IEnumerableExtensions.cs" />
+    <Compile Include="Helpers\RandomHelper.cs" />
     <Compile Include="Helpers\Resources.cs" />
     <Compile Include="Interfaces\ICalculateSpeedAndDistance.cs" />
     <Compile Include="Interfaces\IEventGenerator.cs" />

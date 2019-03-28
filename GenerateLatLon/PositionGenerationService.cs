@@ -89,7 +89,7 @@ namespace GenerateLatLon
             int maxRand = Convert.ToInt32(.75 *((AnchorDistanceKM < 1500) ?  AnchorDistanceKM : 1500));
             Position position = null;
             bool boundryViolation = false;
-
+            int violationCount = 0;
 
             while (true)
             {
@@ -97,14 +97,29 @@ namespace GenerateLatLon
                 //turn the ship 
                 if(boundryViolation)
                 {
-                    dn = dn * -1;
+                    if (violationCount == 1)
+                    {
+                        dn = dn * -1;
+                    }
+                    
+                    if (violationCount == 2)
+                    {
+                        de = de * -1;
+                    }
+
+                    if(violationCount > 2)
+                    {
+                        throw new Exception("Too Many Boundry Violations");
+                    }
+
+
                     boundryViolation = false;
                 }else
                 {
                     if(!holdHeading)
                     {
-                        dn = rnd.Next(Convert.ToInt32(maxRand * .8), 1500);// rnd.Next(maxRand);
-                        de = rnd.Next(Convert.ToInt32(maxRand * .05));
+                        dn = rnd.Next(Convert.ToInt32(maxRand * .8), 1500) * rnd.NegativePositive();
+                        de = rnd.Next(Convert.ToInt32(maxRand * .05)) * rnd.NegativePositive();
                     }
                 }
 
@@ -118,6 +133,7 @@ namespace GenerateLatLon
                 }
                 else
                 {
+                    violationCount++;
                     boundryViolation = true;
                     holdHeading = true;
                     if(!(position.DistanceTo(Anchor) <= AnchorDistanceKM))
