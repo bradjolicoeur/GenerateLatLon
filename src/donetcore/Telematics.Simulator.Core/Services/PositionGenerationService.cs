@@ -12,7 +12,7 @@ namespace Telematics.Simulator.Core.Services
     {
         private readonly IEventGenerator _eventGenerator;
         private readonly ICalculateSpeedAndDistance _speedAndDistance;
-        private readonly Random rnd = new Random();
+        private readonly Random _rnd;
 
         private int AnchorDistanceKM { get; set; }
         private ICoordinates Anchor { get; set; }
@@ -21,11 +21,12 @@ namespace Telematics.Simulator.Core.Services
         private readonly ILogger _log;
 
         public PositionGenerationService(IEventGenerator eventGenerator, ICalculateSpeedAndDistance speedAndDistance
-                                        , ILoggerFactory loggerFactory)
+                                        , ILoggerFactory loggerFactory, IRandomFactory randomFactory)
         {
             _eventGenerator = eventGenerator;
             _speedAndDistance = speedAndDistance;
             _log = loggerFactory.CreateLogger<GenerateTripService>();
+            _rnd = randomFactory.Create();
         }
 
         public IEnumerable<IPosition> Generate(IGenerateTripRequest tripRequest)
@@ -73,7 +74,7 @@ namespace Telematics.Simulator.Core.Services
                 position.VehicleId = Vehicle.VehicleId;
                 sPos.Latitude = position.Latitude;
                 sPos.Longitude = position.Longitude;
-                position.UtcPositionTime = t.AddMinutes(rnd.Next(1,2));
+                position.UtcPositionTime = t.AddMinutes(_rnd.Next(1,2));
                 results.Add(position);
                 ProcessPosition(results, position);
                 t = results.Max(m => m.UtcPositionTime);
@@ -122,8 +123,8 @@ namespace Telematics.Simulator.Core.Services
                 {
                     if(!holdHeading)
                     {
-                        dn = rnd.Next(Convert.ToInt32(maxRand * .8), 1500) * rnd.NegativePositive();
-                        de = rnd.Next(Convert.ToInt32(maxRand * .05)) * rnd.NegativePositive();
+                        dn = _rnd.Next(Convert.ToInt32(maxRand * .8), 1500) * _rnd.NegativePositive();
+                        de = _rnd.Next(Convert.ToInt32(maxRand * .05)) * _rnd.NegativePositive();
                     }
                 }
 

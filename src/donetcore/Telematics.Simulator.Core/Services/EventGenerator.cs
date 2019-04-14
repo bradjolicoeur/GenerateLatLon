@@ -23,10 +23,11 @@ namespace Telematics.Simulator.Core.Services
 
         private IEnumerable<Models.EventType> _eventList;
 
-        private readonly Random _rand = new Random();
+        private readonly Random _rand;
 
-        public EventGenerator()
+        public EventGenerator(IRandomFactory randomFactory)
         {
+            _rand = randomFactory.Create();
             InitializeEventList();
         }
 

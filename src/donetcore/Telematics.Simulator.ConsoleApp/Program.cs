@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Telematics.Simulator.Core.Factories;
 using Telematics.Simulator.Core.Interfaces;
 using Telematics.Simulator.Core.Models;
 using Telematics.Simulator.Core.Services;
@@ -94,7 +95,6 @@ namespace Telematics.Simulator.ConsoleApp
         {
             configuration = new ConfigurationBuilder()
                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-
                .Build();
 
             serviceCollection.AddLogging(loggingBuilder =>
@@ -106,6 +106,7 @@ namespace Telematics.Simulator.ConsoleApp
 
             // Add access to generic IConfigurationRoot
             serviceCollection.AddSingleton<IConfigurationRoot>(configuration);
+            serviceCollection.AddSingleton<IRandomFactory, RandomFactory>();
             serviceCollection.AddTransient<ICalculateSpeedAndDistance, CalculateSpeedAndDistance>();
             serviceCollection.AddTransient<IEventGenerator, EventGenerator>();
             serviceCollection.AddTransient<IPositionGenerationService, PositionGenerationService>();
