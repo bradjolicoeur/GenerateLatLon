@@ -32,7 +32,7 @@ namespace Telematics.Simulator.ConsoleApp
 
             var loggerFactory = serviceProvider.GetService<ILoggerFactory>();
             _logger = loggerFactory.CreateLogger<Program>();
-            _logger.LogDebug("Starting application");
+            _logger.LogInformation("Starting application");
 
             var startTime = DateTime.UtcNow.AddDays(-10);
             List<GenerateTripRequest> Vehicles = GenerateTripRequests(startTime);
@@ -41,6 +41,7 @@ namespace Telematics.Simulator.ConsoleApp
             {
                 var service = serviceProvider.GetService<IGenerateTripService>();
                 service.PositionGenerated += PositionGeneratedHandler;
+                service.TripGenerated += TripGeneratedHandler;
                 service.GenerateTrips(v, NumberOfTripsToGenerate);
             });
         }
@@ -92,7 +93,7 @@ namespace Telematics.Simulator.ConsoleApp
 
         static void TripGeneratedHandler(object source, TripEventArgs e)
         {
-            _logger.LogDebug("Trip for" + e.TripRequest.Vehicle.VehicleId);
+            _logger.LogInformation("Trip for" + e.TripRequest.Vehicle.VehicleId);
         }
 
         private static void ConfigureServices(ServiceCollection serviceCollection)
@@ -102,11 +103,11 @@ namespace Telematics.Simulator.ConsoleApp
 
                .Build();
 
-            serviceCollection.ConfigureLogging((hostingContext, logging) =>
+            serviceCollection.AddLogging(loggingBuilder =>
             {
-                logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                logging.AddConsole();
-                logging.AddDebug();
+                loggingBuilder.AddConfiguration(configuration.GetSection("Logging"));
+                loggingBuilder.AddConsole();
+                loggingBuilder.AddDebug();
             });
 
             // Add access to generic IConfigurationRoot
