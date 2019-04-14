@@ -7,13 +7,6 @@ using Telematics.Simulator.Core.Interfaces;
 
 namespace Telematics.Simulator.Core.Services
 {
-    public delegate void PositionGeneratedHandler(object source, PositionEventArgs e);
-
-    public class PositionEventArgs : EventArgs
-    {
-        public IPosition Position { get; set; }
-    }
-
     public delegate void TripGeneratedHandler(object source, TripEventArgs e);
 
     public class TripEventArgs
@@ -28,7 +21,6 @@ namespace Telematics.Simulator.Core.Services
         private readonly ILogger _log;
         private readonly IPositionGenerationService _positionGenerationService;
 
-        public event PositionGeneratedHandler PositionGenerated;
         public event TripGeneratedHandler TripGenerated;
 
         public GenerateTripService(IPositionGenerationService positionGenerationService, ILoggerFactory loggerFactory)
@@ -53,8 +45,6 @@ namespace Telematics.Simulator.Core.Services
                         + " vehicle:" + result.VehicleId
                         + " distance km:" + result.DistanceKM.ToString()
                         + " speed kph:" + result.SpeedKM.ToString());
-
-                    SendTelemetryEvent(result);
                 }
 
                 SendTripEvent(positions, tripRequest);
@@ -66,9 +56,5 @@ namespace Telematics.Simulator.Core.Services
             TripGenerated?.Invoke(this, new TripEventArgs { Positions = positions, TripRequest = request });
         }
 
-        private void SendTelemetryEvent(IPosition result)
-        {
-            PositionGenerated?.Invoke(this, new PositionEventArgs { Position = result });
-        }
     }
 }

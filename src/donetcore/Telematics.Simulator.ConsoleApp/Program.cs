@@ -40,7 +40,6 @@ namespace Telematics.Simulator.ConsoleApp
             Parallel.ForEach(Vehicles, v =>
             {
                 var service = serviceProvider.GetService<IGenerateTripService>();
-                service.PositionGenerated += PositionGeneratedHandler;
                 service.TripGenerated += TripGeneratedHandler;
                 service.GenerateTrips(v, NumberOfTripsToGenerate);
             });
@@ -84,11 +83,6 @@ namespace Telematics.Simulator.ConsoleApp
                 }
             };
             return Vehicles;
-        }
-
-        static void PositionGeneratedHandler(object source, PositionEventArgs e)
-        {
-            _logger.LogDebug("Position for" + e.Position.VehicleId);
         }
 
         static void TripGeneratedHandler(object source, TripEventArgs e)
