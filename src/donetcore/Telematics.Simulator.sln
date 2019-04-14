@@ -5,7 +5,21 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telematics.Simulator.Core", "Telematics.Simulator.Core\Telematics.Simulator.Core.csproj", "{001FA5F0-D087-46CC-94D8-B2F909B75AD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telematics.Simulator.ConsoleApp", "Telematics.Simulator.ConsoleApp\Telematics.Simulator.ConsoleApp.csproj", "{9A7C5A01-A8DC-4DB9-A5D1-CC1CDE8A6901}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telematics.Simulator.ConsoleApp", "Telematics.Simulator.ConsoleApp\Telematics.Simulator.ConsoleApp.csproj", "{9A7C5A01-A8DC-4DB9-A5D1-CC1CDE8A6901}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telematics.Simulator.CalculateTripEndpoint", "Telematics.Simulator.CalculateTripEndpoint\Telematics.Simulator.CalculateTripEndpoint.csproj", "{B1D14270-6146-4FF1-81F0-DD2AF85FF6ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telematics.Simulator.VehicleSaga", "Telematics.Simulator.VehicleSaga\Telematics.Simulator.VehicleSaga.csproj", "{F7B625D8-9354-4CA2-9F4F-5796D01F1369}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telematics.Simulator.Contracts", "Telematics.Simulator.Contracts\Telematics.Simulator.Contracts.csproj", "{57434B74-9600-4425-9387-C06CB9454BEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telematics.Simulator.EndpointConfiguration", "Telematics.Simulator.EndpointConfiguration\Telematics.Simulator.EndpointConfiguration.csproj", "{AA09A2EC-196D-4626-9CE4-A0AE3FC50A36}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telematics.Simulator.EmitDatapoint", "Telematics.Simulator.EmitDatapoint\Telematics.Simulator.EmitDatapoint.csproj", "{3D0D861C-116A-4D2E-BD35-37494F9A5522}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telematics.Simulator.Models", "Telematics.Simulator.Models\Telematics.Simulator.Models.csproj", "{64FC7758-D21D-498C-91DA-9737C8FE5FB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telematics.Simulator.ScaleOutConsole", "Telematics.Simulator.ScaleOutConsole\Telematics.Simulator.ScaleOutConsole.csproj", "{822A6C85-AE7C-44E9-84FA-C909B0376B13}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +35,34 @@ Global
 		{9A7C5A01-A8DC-4DB9-A5D1-CC1CDE8A6901}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A7C5A01-A8DC-4DB9-A5D1-CC1CDE8A6901}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A7C5A01-A8DC-4DB9-A5D1-CC1CDE8A6901}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1D14270-6146-4FF1-81F0-DD2AF85FF6ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1D14270-6146-4FF1-81F0-DD2AF85FF6ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1D14270-6146-4FF1-81F0-DD2AF85FF6ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1D14270-6146-4FF1-81F0-DD2AF85FF6ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7B625D8-9354-4CA2-9F4F-5796D01F1369}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7B625D8-9354-4CA2-9F4F-5796D01F1369}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7B625D8-9354-4CA2-9F4F-5796D01F1369}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7B625D8-9354-4CA2-9F4F-5796D01F1369}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57434B74-9600-4425-9387-C06CB9454BEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57434B74-9600-4425-9387-C06CB9454BEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57434B74-9600-4425-9387-C06CB9454BEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57434B74-9600-4425-9387-C06CB9454BEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA09A2EC-196D-4626-9CE4-A0AE3FC50A36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA09A2EC-196D-4626-9CE4-A0AE3FC50A36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA09A2EC-196D-4626-9CE4-A0AE3FC50A36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA09A2EC-196D-4626-9CE4-A0AE3FC50A36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D0D861C-116A-4D2E-BD35-37494F9A5522}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D0D861C-116A-4D2E-BD35-37494F9A5522}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D0D861C-116A-4D2E-BD35-37494F9A5522}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D0D861C-116A-4D2E-BD35-37494F9A5522}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64FC7758-D21D-498C-91DA-9737C8FE5FB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64FC7758-D21D-498C-91DA-9737C8FE5FB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64FC7758-D21D-498C-91DA-9737C8FE5FB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64FC7758-D21D-498C-91DA-9737C8FE5FB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{822A6C85-AE7C-44E9-84FA-C909B0376B13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{822A6C85-AE7C-44E9-84FA-C909B0376B13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{822A6C85-AE7C-44E9-84FA-C909B0376B13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{822A6C85-AE7C-44E9-84FA-C909B0376B13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

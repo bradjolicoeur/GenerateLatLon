@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Telematics.Simulator.Core.Interfaces;
+
+namespace Telematics.Simulator.Contracts.Commands
+{
+    public class GenerateVehicleTrip
+    {
+        public ICoordinates Anchor { get; set; }
+        public int AnchorDistanceKM { get; set; }
+        public string[] AnchorStates { get; set; }
+        public ICoordinates StartingPosition { get; set; }
+        public DateTime StartTime { get; set; }
+        public IVehicle Vehicle { get; set; }
+    }
+}

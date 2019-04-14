@@ -1,0 +1,15 @@
+{
+  "NServiceBus.MessageId": "a247bd93-a7a4-45c0-bd49-aa2f01297c10",
+  "NServiceBus.MessageIntent": "Publish",
+  "NServiceBus.RelatedTo": "8c8778c3-b8b5-4511-a48d-aa2f01294dfc",
+  "NServiceBus.ConversationId": "b87bec0f-f3b2-4e8a-8f16-aa2f01294b60",
+  "NServiceBus.CorrelationId": "38b31310-30b8-431c-9925-aa2f01294b55",
+  "NServiceBus.OriginatingMachine": "DESKTOP-U0RB8PF",
+  "NServiceBus.OriginatingEndpoint": "CalculateTripEndpoint",
+  "$.diagnostics.originating.hostid": "848a2450213aeb1bfeefaffefd594814",
+  "NServiceBus.ReplyToAddress": "CalculateTripEndpoint",
+  "NServiceBus.ContentType": "text\/xml",
+  "NServiceBus.EnclosedMessageTypes": "Telematics.Simulator.Contracts.Events.IGeneratedVehicleTrip, Telematics.Simulator.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+  "NServiceBus.Version": "7.1.7",
+  "NServiceBus.TimeSent": "2019-04-14 18:03:06:540776 Z"
+}
