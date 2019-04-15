@@ -35,6 +35,8 @@ namespace Telematics.Simulator.TripSaga
         {
             _log.LogInformation("Dispatch position for " + Data.VehicleId );
 
+            //TODO: if there are events with the same time stamp they need to be
+            //sent as a batch...need to do some grouping here
             //find the current position to dispatch
             var position = Data.Positions.OrderBy(o => o.UtcPositionTime)
                 .Skip(Data.LastPoint).Take(1).FirstOrDefault();
