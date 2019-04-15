@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telematics.Simulator.Models
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telematics.Simulator.ScaleOutConsole", "Telematics.Simulator.ScaleOutConsole\Telematics.Simulator.ScaleOutConsole.csproj", "{822A6C85-AE7C-44E9-84FA-C909B0376B13}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telematics.Simulator.TripSaga", "Telematics.Simulator.TripSaga\Telematics.Simulator.TripSaga.csproj", "{BAAEF463-7D42-422F-9E7B-582D5F740877}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{822A6C85-AE7C-44E9-84FA-C909B0376B13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{822A6C85-AE7C-44E9-84FA-C909B0376B13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{822A6C85-AE7C-44E9-84FA-C909B0376B13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAAEF463-7D42-422F-9E7B-582D5F740877}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAAEF463-7D42-422F-9E7B-582D5F740877}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAAEF463-7D42-422F-9E7B-582D5F740877}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAAEF463-7D42-422F-9E7B-582D5F740877}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

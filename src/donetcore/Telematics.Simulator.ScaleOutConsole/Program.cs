@@ -49,15 +49,19 @@ namespace Telematics.Simulator.ScaleOutConsole
 
             log.Info("ENDPOINT READY");
 
-            await EndpointInstance.Send<InitializeVehicle>(m =>
-             {
-                 m.StartingPosition = new Coordinates(39.9340, -74.8910);
-                 m.Anchor = new Coordinates(39.9340, -74.8910);
-                 m.AnchorDistanceKM = 1000;
-                 m.AnchorStates = new string[] { "New Jersey", "Pennsylvania", "New York", "Maryland", "Delaware" };
-                 m.StartTime = DateTime.UtcNow.AddDays(-1);
-                 m.Vehicle = new Vehicle(Guid.NewGuid().ToString());
-             });
+            for (int i=0; i <= 1; i++)
+            {
+                await EndpointInstance.Send<InitializeVehicle>(m =>
+                {
+                    m.StartingPosition = new Coordinates(39.9340, -74.8910);
+                    m.Anchor = new Coordinates(39.9340, -74.8910);
+                    m.AnchorDistanceKM = 1000;
+                    m.AnchorStates = new string[] { "New Jersey", "Pennsylvania", "New York", "Maryland", "Delaware" };
+                    m.StartTime = DateTime.UtcNow.AddDays(-1);
+                    m.Vehicle = new Vehicle(Guid.NewGuid().ToString());
+                });
+            }
+            
 
             Console.Read();
 

@@ -1,0 +1,23 @@
+{
+  "NServiceBus.MessageId": "cfc9b3d4-ebde-456a-9e6d-aa3000ee48a4",
+  "NServiceBus.MessageIntent": "Send",
+  "NServiceBus.RelatedTo": "9876786d-7a0c-4dd1-88da-aa3000ee45c4",
+  "NServiceBus.ConversationId": "62b81798-405a-4809-91b7-aa3000ee45d7",
+  "NServiceBus.CorrelationId": "9876786d-7a0c-4dd1-88da-aa3000ee45c4",
+  "NServiceBus.OriginatingMachine": "DESKTOP-U0RB8PF",
+  "NServiceBus.OriginatingEndpoint": "VehicleSagaEndpoint",
+  "$.diagnostics.originating.hostid": "d2474d06d7270145f074c0c55dd02dc3",
+  "NServiceBus.OriginatingSagaId": "522061e9-585c-428b-8da7-aa3000ee488f",
+  "NServiceBus.OriginatingSagaType": "Telematics.Simulator.VehicleSaga.VehicleSagaHandler, Telematics.Simulator.VehicleSaga, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+  "NServiceBus.ReplyToAddress": "VehicleSagaEndpoint",
+  "NServiceBus.ContentType": "text\/xml",
+  "NServiceBus.EnclosedMessageTypes": "Telematics.Simulator.Contracts.Commands.GenerateVehicleTrip, Telematics.Simulator.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+  "NServiceBus.Version": "7.1.7",
+  "NServiceBus.TimeSent": "2019-04-15 14:27:34:063134 Z",
+  "NServiceBus.ProcessingStarted": "2019-04-15 14:27:34:596355 Z",
+  "NServiceBus.ProcessingEnded": "2019-04-15 14:27:38:265052 Z",
+  "$.diagnostics.hostid": "848a2450213aeb1bfeefaffefd594814",
+  "$.diagnostics.hostdisplayname": "DESKTOP-U0RB8PF",
+  "NServiceBus.ProcessingMachine": "DESKTOP-U0RB8PF",
+  "NServiceBus.ProcessingEndpoint": "CalculateTripEndpoint"
+}

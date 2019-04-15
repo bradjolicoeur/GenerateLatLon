@@ -29,7 +29,7 @@ namespace Telematics.Simulator.CalculateTripEndpoint
 
         public Task Handle(GenerateVehicleTrip message, IMessageHandlerContext context)
         {
-            _log.LogDebug("Calculating Trip for " + message.Vehicle.VehicleId);
+            _log.LogInformation("Calculating Trip for " + message.Vehicle.VehicleId);
 
             var request = new GenerateTripRequest
             {
@@ -39,7 +39,7 @@ namespace Telematics.Simulator.CalculateTripEndpoint
                 AnchorStates = message.AnchorStates,
                 StartTime = message.StartTime,
                 Vehicle = message.Vehicle,
-                NumberOfPositions = _rnd.Next(350, 800)
+                NumberOfPositions = 5 //_rnd.Next(100, 300)
             };
 
             var result = _generateTripSerice.Generate(request);

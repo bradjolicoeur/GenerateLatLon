@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Telematics.Simulator.Core.Interfaces;
+using Telematics.Simulator.VehicleSaga.Models;
 
 namespace Telematics.Simulator.VehicleSaga
 {
@@ -14,20 +15,16 @@ namespace Telematics.Simulator.VehicleSaga
 
         public ICoordinates InitialPosition { get; set; }
 
-        public ICoordinates LastPosition { get; set; }
-
-        public IEnumerable<IPosition> FuturePositions { get; set; }
+        public IPosition LastPosition { get; set; }
 
         public IGenerateTripRequest LastTripRequest { get; set; }
-
-        public IGenerateTripRequest NextTripRequest { get; set; }
-
-        public DateTime StartTime { get; set; }
 
         public ICoordinates Anchor { get; set; }
 
         public int AnchorDistanceKM { get; set; } = 1000;
 
         public string[] AnchorStates { get; set; }
+
+        public DateTime NextTripStartTime { get; set; }
     }
 }
