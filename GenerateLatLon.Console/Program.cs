@@ -18,7 +18,7 @@ namespace GenerateLatLonConsole
         private static readonly Random rnd = new Random();
 
         //This controls how many trips each vehicle takes per run
-        private const int NumberOfTripsToGenerate = 10;
+        private const int NumberOfTripsToGenerate = 30;
 
         private static void CreateEventHubClient()
         {
@@ -30,7 +30,7 @@ namespace GenerateLatLonConsole
         static void Main(string[] args)
         {
             CreateEventHubClient();
-            var startTime = DateTime.UtcNow.AddDays(-10);
+            var startTime = DateTime.UtcNow.AddDays(-5);
 
             //configure vehicles here
             var Vehicles = new List<GenerateTripRequest>
@@ -42,30 +42,37 @@ namespace GenerateLatLonConsole
                     AnchorDistanceKM = 1000, //radius of the vehicle territory
                     AnchorStates = new string[] { "New Jersey", "Pennsylvania", "New York", "Maryland", "Delaware" }, //optional; keep the vehicle in a set of states
                     StartTime = startTime, //the start time for the first trip
-                    Vehicle = new Vehicle("12VVIELVICE9IDVW89V"), //any identifier works, but something that looks like vin is realistic
+                    Vehicle = new Vehicle(Guid.NewGuid().ToString()), //any identifier works, but something that looks like vin is realistic
                     NumberOfPositions = rnd.Next(500, 1000) //Number of positions to calculate for each trip
                 }
-                ,  new GenerateTripRequest
-                {
-                    StartingPosition = new Coordinates(39.9340, -74.8910),
-                    Anchor = new Coordinates(39.9340, -74.8910),
-                    AnchorDistanceKM = 500,
-                    AnchorStates = new string[] { "New Jersey", "Pennsylvania", "New York", "Maryland", "Delaware" },
-                    StartTime = startTime,
-                    Vehicle = new Vehicle("12VVIELVICE9IDVW89X"),
-                    NumberOfPositions = rnd.Next(500, 1000)
-                }
-                , new GenerateTripRequest
-                {
-                    StartingPosition = new Coordinates(38.5632, -76.0788),
-                    Anchor = new Coordinates(38.5632, -76.0788),
-                    AnchorDistanceKM = 1000,
-                    //AnchorStates = new string[] { "Pennsylvania", "Virginia", "Maryland", "Delaware" },
-                    StartTime = startTime,
-                    Vehicle = new Vehicle("12VVIELVICE9IDVW89R"),
-                    NumberOfPositions = rnd.Next(500, 1000)
-                }
+                //,  new GenerateTripRequest
+                //{
+                //    StartingPosition = new Coordinates(39.9340, -74.8910),
+                //    Anchor = new Coordinates(39.9340, -74.8910),
+                //    AnchorDistanceKM = 500,
+                //    AnchorStates = new string[] { "New Jersey", "Pennsylvania", "New York", "Maryland", "Delaware" },
+                //    StartTime = startTime,
+                //    Vehicle = new Vehicle(Guid.NewGuid().ToString()),
+                //    NumberOfPositions = rnd.Next(500, 1000)
+                //}
+                //, new GenerateTripRequest
+                //{
+                //    StartingPosition = new Coordinates(38.5632, -76.0788),
+                //    Anchor = new Coordinates(38.5632, -76.0788),
+                //    AnchorDistanceKM = 1000,
+                //    //AnchorStates = new string[] { "Pennsylvania", "Virginia", "Maryland", "Delaware" },
+                //    StartTime = startTime,
+                //    Vehicle = new Vehicle(Guid.NewGuid().ToString()),
+                //    NumberOfPositions = rnd.Next(500, 1000)
+                //}
             };
+
+            Vehicles.ForEach(v =>
+            {
+                Console.WriteLine($"VehicleID {v.Vehicle.VehicleId}");
+            });
+
+            Console.ReadLine();
 
             Parallel.ForEach(Vehicles, v =>
             {
