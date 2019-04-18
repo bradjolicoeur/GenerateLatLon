@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Telematics.Simulator.ScaleOutConsole": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

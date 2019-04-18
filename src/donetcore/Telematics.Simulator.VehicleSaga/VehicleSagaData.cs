@@ -1,10 +1,6 @@
 ﻿using NServiceBus;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Telematics.Simulator.Models.Interfaces;
-using Telematics.Simulator.Models.Interfaces;
-using Telematics.Simulator.VehicleSaga.Models;
 
 namespace Telematics.Simulator.VehicleSaga
 {
