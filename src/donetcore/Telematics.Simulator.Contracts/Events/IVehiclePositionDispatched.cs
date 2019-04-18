@@ -1,9 +1,9 @@
-﻿using Telematics.Simulator.Core.Interfaces;
+﻿using Telematics.Simulator.Models.Interfaces;
 
 namespace Telematics.Simulator.Contracts.Events
 {
     public interface IVehiclePositionDispatched
     {
-        IPosition Position { get; set; }
+        ITripPosition Position { get; set; }
     }
 }

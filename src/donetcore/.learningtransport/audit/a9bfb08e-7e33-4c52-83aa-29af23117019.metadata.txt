@@ -1,0 +1,23 @@
+{
+  "NServiceBus.MessageId": "dbeac28a-05ef-4fa8-af92-aa33000c7437",
+  "NServiceBus.MessageIntent": "Publish",
+  "NServiceBus.RelatedTo": "1c4a93ac-6c94-430e-a081-aa33000c44d3",
+  "NServiceBus.ConversationId": "8e210aad-1268-4d89-bc23-aa33000c433a",
+  "NServiceBus.CorrelationId": "0935cde4-9b30-4131-b2ed-aa33000c4339",
+  "NServiceBus.OriginatingMachine": "AFTERMAN-JOLICO",
+  "NServiceBus.OriginatingEndpoint": "TripSagaEndpoint",
+  "$.diagnostics.originating.hostid": "eeee64b01bb8ae164c0e1000f6d0c4a5",
+  "NServiceBus.OriginatingSagaId": "ae07ecba-6fcd-497b-a5a5-aa33000c44c3",
+  "NServiceBus.OriginatingSagaType": "Telematics.Simulator.TripSaga.TripSagaHandler, Telematics.Simulator.TripSaga, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+  "NServiceBus.ReplyToAddress": "TripSagaEndpoint",
+  "NServiceBus.ContentType": "text\/xml",
+  "NServiceBus.EnclosedMessageTypes": "Telematics.Simulator.Contracts.Events.IVehiclePositionDispatched, Telematics.Simulator.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+  "NServiceBus.Version": "7.1.7",
+  "NServiceBus.TimeSent": "2019-04-18 00:45:20:612102 Z",
+  "NServiceBus.ProcessingStarted": "2019-04-18 00:45:20:931102 Z",
+  "NServiceBus.ProcessingEnded": "2019-04-18 00:45:20:934102 Z",
+  "$.diagnostics.hostid": "876249f4ee95e4aa44f8e699c813fd00",
+  "$.diagnostics.hostdisplayname": "AFTERMAN-JOLICO",
+  "NServiceBus.ProcessingMachine": "AFTERMAN-JOLICO",
+  "NServiceBus.ProcessingEndpoint": "EmitDatapointEndpoint"
+}

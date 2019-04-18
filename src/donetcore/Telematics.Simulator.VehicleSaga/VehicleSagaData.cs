@@ -2,7 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Telematics.Simulator.Core.Interfaces;
+using Telematics.Simulator.Models.Interfaces;
+using Telematics.Simulator.Models.Interfaces;
 using Telematics.Simulator.VehicleSaga.Models;
 
 namespace Telematics.Simulator.VehicleSaga
@@ -15,7 +16,7 @@ namespace Telematics.Simulator.VehicleSaga
 
         public ICoordinates InitialPosition { get; set; }
 
-        public IPosition LastPosition { get; set; }
+        public ITripPosition LastPosition { get; set; }
 
         public IGenerateTripRequest LastTripRequest { get; set; }
 

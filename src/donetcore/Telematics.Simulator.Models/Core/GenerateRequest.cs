@@ -1,4 +1,4 @@
-﻿using Telematics.Simulator.Core.Interfaces;
+﻿using Telematics.Simulator.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

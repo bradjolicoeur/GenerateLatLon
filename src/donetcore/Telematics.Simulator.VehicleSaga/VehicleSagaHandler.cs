@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using NServiceBus;
 using Telematics.Simulator.Contracts.Commands;
 using Telematics.Simulator.Contracts.Events;
-using Telematics.Simulator.Core.Models;
+using Telematics.Simulator.Models.Interfaces;
 
 namespace Telematics.Simulator.VehicleSaga
 {

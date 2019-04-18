@@ -27,6 +27,9 @@ namespace Telematics.Simulator.TripSaga
 
             Data.TripRequest = message.TripRequest;
             Data.Positions = message.Positions.ToList();
+            Data.PositionTimes = Data.Positions.GroupBy(
+                p => p.UtcPositionTime,
+                (key, g) => key).ToList();
 
             await RequestTimeout<EmitPositionTimeout>(context, TimeSpan.FromSeconds(1));
         }
@@ -38,26 +41,32 @@ namespace Telematics.Simulator.TripSaga
             //TODO: if there are events with the same time stamp they need to be
             //sent as a batch...need to do some grouping here
             //find the current position to dispatch
-            var position = Data.Positions.OrderBy(o => o.UtcPositionTime)
+            var ptime = Data.PositionTimes.OrderBy(o => o)
                 .Skip(Data.LastPoint).Take(1).FirstOrDefault();
 
             Data.LastPoint++;
 
-            //Dispatch the vehicle position
-            await context.Publish<IVehiclePositionDispatched>(messageConstructor: m =>
+            var positions = Data.Positions.Where(o => o.UtcPositionTime == ptime);
+
+            foreach(var position in positions)
             {
-                m.Position = position;
-            });
+                //Dispatch the vehicle position
+                await context.Publish<IVehiclePositionDispatched>(messageConstructor: m =>
+                {
+                    m.Position = position;
+                });
+            }
+
 
             //find the next position in the series
-            var nextPosition = Data.Positions
-                    .Where(p => p.UtcPositionTime > position.UtcPositionTime)
-                    .OrderBy(o => o.UtcPositionTime).FirstOrDefault();
+            var nextPosition = Data.PositionTimes
+                    .Where(p => p > ptime)
+                    .OrderBy(o => o).FirstOrDefault();
 
             if(nextPosition != null)
             {
                 //find the time to raise the next timeout to dispatch a position
-                var nextTime = nextPosition.UtcPositionTime.Subtract(position.UtcPositionTime);
+                var nextTime = nextPosition.Subtract(ptime);
 
                 _log.LogInformation(Data.VehicleId + " next position in " + nextTime.ToString());
 
@@ -70,7 +79,7 @@ namespace Telematics.Simulator.TripSaga
                 await context.Publish<ICompletedDispatchingTrip>(messageConstructor: m =>
                 {
                     m.VehicleId = Data.VehicleId;
-                    m.LastPosition = position;
+                    m.LastPosition = Data.Positions.OrderByDescending(o => o.UtcPositionTime).Take(1).FirstOrDefault();
                     m.TripRequest = Data.TripRequest;
                 });
 

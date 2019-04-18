@@ -6,8 +6,10 @@ using Microsoft.Extensions.Logging;
 using NServiceBus;
 using Telematics.Simulator.Contracts.Commands;
 using Telematics.Simulator.Contracts.Events;
+using Telematics.Simulator.Contracts.Models;
 using Telematics.Simulator.Core.Interfaces;
 using Telematics.Simulator.Core.Models;
+using Telematics.Simulator.Models.Interfaces;
 
 namespace Telematics.Simulator.CalculateTripEndpoint
 {
@@ -48,8 +50,35 @@ namespace Telematics.Simulator.CalculateTripEndpoint
                 messageConstructor: m =>
             {
                 m.TripRequest = request;
-                m.Positions = result;
+                m.Positions = ConvertPositions(result);
             });
+        }
+
+        public IEnumerable<ITripPosition> ConvertPositions(IEnumerable<IPosition> positions)
+        {
+            var tripPositions = new List<ITripPosition>();
+            foreach (var position in positions)
+            {
+
+                string label = null;
+                if(position is IBehaviorEvent be)
+                {
+                    label = be.Label;
+                }
+
+                tripPositions.Add(new TripPosition
+                {
+                    DistanceKM = position.DistanceKM,
+                    SpeedKM = position.SpeedKM,
+                    Latitude = position.Latitude,
+                    Longitude = position.Longitude,
+                    UtcPositionTime = position.UtcPositionTime,
+                    VehicleId = position.VehicleId,
+                    Label = label
+                });
+            }
+
+            return tripPositions;
         }
     }
 }

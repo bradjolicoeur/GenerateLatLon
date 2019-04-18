@@ -10,7 +10,6 @@ namespace Telematics.Simulator.ScaleOutConsole
     using System;
     using System.Threading.Tasks;
     using Telematics.Simulator.Contracts.Commands;
-    using Telematics.Simulator.Core.Interfaces;
     using Telematics.Simulator.Core.Models;
     using Telematics.Simulator.EndpointConf;
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Telematics.Simulator.Core.Interfaces
+namespace Telematics.Simulator.Models.Interfaces
 {
     public interface IBehaviorEvent : IDeviceEvent
     {

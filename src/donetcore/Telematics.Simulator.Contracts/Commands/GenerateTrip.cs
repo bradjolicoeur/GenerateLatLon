@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Telematics.Simulator.Core.Interfaces;
+using Telematics.Simulator.Models.Interfaces;
 
 namespace Telematics.Simulator.Contracts.Commands
 {

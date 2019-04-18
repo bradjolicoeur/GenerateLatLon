@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
+using Telematics.Simulator.Models.Interfaces;
 
 namespace Telematics.Simulator.Core.Services
 {

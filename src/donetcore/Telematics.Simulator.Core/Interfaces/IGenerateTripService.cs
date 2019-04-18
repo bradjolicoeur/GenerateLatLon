@@ -1,4 +1,5 @@
 ﻿using Telematics.Simulator.Core.Services;
+using Telematics.Simulator.Models.Interfaces;
 
 namespace Telematics.Simulator.Core.Interfaces
 {

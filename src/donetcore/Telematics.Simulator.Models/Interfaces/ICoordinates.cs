@@ -1,4 +1,4 @@
-﻿namespace Telematics.Simulator.Core.Interfaces
+﻿namespace Telematics.Simulator.Models.Interfaces
 {
     public interface ICoordinates
     {

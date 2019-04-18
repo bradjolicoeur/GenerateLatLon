@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Telematics.Simulator.Core.Interfaces;
+﻿using Telematics.Simulator.Models.Interfaces;
 
 namespace Telematics.Simulator.Contracts.Events
 {
@@ -9,7 +6,7 @@ namespace Telematics.Simulator.Contracts.Events
     {
         string VehicleId { get; set; }
 
-        IPosition LastPosition { get; set; }
+        ITripPosition LastPosition { get; set; }
 
         IGenerateTripRequest TripRequest { get; set; }
     }

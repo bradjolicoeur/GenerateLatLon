@@ -9,7 +9,6 @@ namespace Telematics.Simulator.VehicleSaga
     using NServiceBus.Logging;
     using System;
     using System.Threading.Tasks;
-    using Telematics.Simulator.Core.Interfaces;
     using Telematics.Simulator.EndpointConf;
 
     class Program

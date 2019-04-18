@@ -1,4 +1,4 @@
-﻿using Telematics.Simulator.Core.Interfaces;
+﻿using Telematics.Simulator.Models.Interfaces;
 using System;
 
 namespace Telematics.Simulator.Core.Models

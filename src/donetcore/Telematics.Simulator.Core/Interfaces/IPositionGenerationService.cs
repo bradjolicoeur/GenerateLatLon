@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Telematics.Simulator.Models.Interfaces;
 
 namespace Telematics.Simulator.Core.Interfaces
 {

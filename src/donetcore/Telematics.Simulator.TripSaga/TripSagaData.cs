@@ -1,6 +1,7 @@
 ﻿using NServiceBus;
+using System;
 using System.Collections.Generic;
-using Telematics.Simulator.Core.Interfaces;
+using Telematics.Simulator.Models.Interfaces;
 
 namespace Telematics.Simulator.TripSaga
 {
@@ -8,7 +9,8 @@ namespace Telematics.Simulator.TripSaga
     {
         public string VehicleId { get; set; }
         public IGenerateTripRequest TripRequest { get; set; }
-        public IList<IPosition> Positions { get; set; }
+        public IList<ITripPosition> Positions { get; set; }
+        public IList<DateTime> PositionTimes { get; set; }
         public int LastPoint { get; set; }
     }
 }

@@ -1,10 +1,10 @@
-﻿using Telematics.Simulator.Core.Interfaces;
-using Telematics.Simulator.Core.Models;
+﻿using Telematics.Simulator.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Telematics.Simulator.Models.Interfaces;
 
 namespace Telematics.Simulator.Core.Helpers
 {
