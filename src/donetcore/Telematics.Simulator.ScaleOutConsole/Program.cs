@@ -48,8 +48,10 @@ namespace Telematics.Simulator.ScaleOutConsole
 
             log.Info("ENDPOINT READY");
 
-            for (int i=0; i <= 1; i++)
+            for (int i=0; i <= 0; i++)
             {
+                log.Info("Starting " + i.ToString());
+
                 await EndpointInstance.Send<InitializeVehicle>(m =>
                 {
                     m.StartingPosition = new Coordinates(39.9340, -74.8910);
@@ -59,8 +61,11 @@ namespace Telematics.Simulator.ScaleOutConsole
                     m.StartTime = DateTime.UtcNow.AddDays(-1);
                     m.Vehicle = new Vehicle(Guid.NewGuid().ToString());
                 });
+
+                System.Threading.Thread.Sleep(5000);
             }
-            
+
+            log.Info("Started fleet");
 
             Console.Read();
 

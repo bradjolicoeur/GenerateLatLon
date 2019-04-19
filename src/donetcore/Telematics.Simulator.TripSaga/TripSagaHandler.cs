@@ -63,11 +63,11 @@ namespace Telematics.Simulator.TripSaga
                     .Where(p => p > ptime)
                     .OrderBy(o => o).FirstOrDefault();
 
-            if(nextPosition != null)
-            {
-                //find the time to raise the next timeout to dispatch a position
-                var nextTime = nextPosition.Subtract(ptime);
+            //find the time to raise the next timeout to dispatch a position
+            var nextTime = nextPosition.Subtract(ptime);
 
+            if (nextTime.CompareTo(TimeSpan.Zero) >= 0)
+            {
                 _log.LogInformation(Data.VehicleId + " next position in " + nextTime.ToString());
 
                 //Request the next timeout
@@ -82,6 +82,8 @@ namespace Telematics.Simulator.TripSaga
                     m.LastPosition = Data.Positions.OrderByDescending(o => o.UtcPositionTime).Take(1).FirstOrDefault();
                     m.TripRequest = Data.TripRequest;
                 });
+
+                _log.LogInformation(Data.VehicleId + " Trip Completed " + nextTime.ToString());
 
                 MarkAsComplete();
             }
