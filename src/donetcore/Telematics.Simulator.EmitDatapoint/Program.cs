@@ -8,6 +8,8 @@ namespace Telematics.Simulator.EmitDatapoint
     using NServiceBus.Logging;
     using System;
     using System.Threading.Tasks;
+    using Telematics.Simulator.EmitDatapoint.Services;
+    using Telematics.Simulator.EmitDatapoint.Models;
     using Telematics.Simulator.EndpointConf;
 
     class Program
@@ -72,6 +74,9 @@ namespace Telematics.Simulator.EmitDatapoint
 
             // Add access to generic IConfigurationRoot
             serviceCollection.AddSingleton<IConfigurationRoot>(configuration);
+            serviceCollection.Configure<AppSettings>(configuration);
+
+            serviceCollection.AddSingleton<IEventHubService, EventHubService>();
 
         }
 
