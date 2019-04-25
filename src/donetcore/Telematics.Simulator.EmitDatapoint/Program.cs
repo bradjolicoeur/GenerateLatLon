@@ -63,6 +63,7 @@ namespace Telematics.Simulator.EmitDatapoint
         {
             configuration = new ConfigurationBuilder()
                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+               .AddJsonFile("appsecrets.json", optional: true, reloadOnChange: true)
                .Build();
 
             serviceCollection.AddLogging(loggingBuilder =>
